@@ -32,7 +32,7 @@ export default function IndexPage() {
 
         <motion.a
           href="/game"
-          className="px-8 py-4 text-xl font-semibold text-white bg-blue-500 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300"
+          className="px-10 py-5 text-xl font-semibold text-white bg-gradient-to-r from-blue-600 via-blue-400 to-blue-200 rounded-full shadow-lg transform hover:scale-105 hover:shadow-2xl transition-all duration-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
