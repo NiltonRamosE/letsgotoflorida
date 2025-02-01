@@ -1,18 +1,17 @@
 "use client";
 import DefaultLayout from "@/layouts/default";
 import AdvanceBar from "@/components/game/advancebar";
+import MoveControls from "@/components/game/movecontrols";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Image } from "@nextui-org/image";
 
 export default function MainGamePage() {
   const [score, setScore] = useState(0);
-  const [position, setPosition] = useState(0);
+  const [positionY, setPositionY] = useState(0);
 
-  const handleMove = () => {
-    setPosition((prev) => prev + 10);
-    setScore((prevScore) => prevScore + 1);
-  };
+  const handleMoveUp = () => setPositionY((prev) => prev - 10);
+  const handleMoveDown = () => setPositionY((prev) => prev + 10);
 
   return (
     <DefaultLayout>
@@ -23,7 +22,7 @@ export default function MainGamePage() {
       <div className="flex flex-col items-center justify-center min-h-screen text-center space-y-6 overflow-hidden">
         <motion.div
           className="w-32"
-          animate={{ x: position }}
+          animate={{ y: positionY }}
           transition={{ duration: 0.3 }}
         >
           <Image
@@ -32,6 +31,9 @@ export default function MainGamePage() {
             className="transform transition-transform hover:scale-105"
           />
         </motion.div>
+      </div>
+      <div className="absolute bottom-18 left-0 right-0 flex justify-center">
+        <MoveControls onMoveUp={handleMoveUp} onMoveDown={handleMoveDown} />
       </div>
 
       <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
