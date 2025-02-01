@@ -4,11 +4,13 @@ interface ObjectProps {
   x: number;
   y: number;
   image: string;
+  id: string;
 }
 
-const Object = ({ x, y, image }: ObjectProps) => {
+const Object = ({ x, y, image, id }: ObjectProps) => {
   return (
     <div
+      id={id}
       className="absolute"
       style={{ top: `${y}px`, left: `${x}px` }}
     >

@@ -68,12 +68,10 @@ export default function MainGamePage() {
 
       setObjects((prevObjects) =>
         prevObjects.filter((obj) => {
-          const objRect = {
-            left: obj.x,
-            right: obj.x + 50,
-            top: obj.y,
-            bottom: obj.y + 50,
-          };
+          const objRef = document.getElementById(`object-${obj.x}-${obj.y}`);
+          if (!objRef) return true;
+
+          const objRect = objRef.getBoundingClientRect();
 
           const isCollision =
             turkeyRect.left < objRect.right &&
@@ -104,7 +102,13 @@ export default function MainGamePage() {
 
       <div className="relative flex flex-col items-center justify-center min-h-screen text-center space-y-6 overflow-hidden">
         {objects.map((obj, index) => (
-          <Object key={index} x={obj.x} y={obj.y} image={obj.image} />
+          <Object
+            key={index}
+            x={obj.x}
+            y={obj.y}
+            image={obj.image}
+            id={`object-${obj.x}-${obj.y}`}
+          />
         ))}
 
         <motion.div
