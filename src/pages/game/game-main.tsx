@@ -6,22 +6,35 @@ import Object from "@/components/game/object";
 import obstaclesData from "@/data/obstaclesData";
 import rewardsData from "@/data/rewardsData";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Image } from "@nextui-org/image";
 
 export default function MainGamePage() {
   const [score, setScore] = useState(0);
   const [positionY, setPositionY] = useState(0);
-  const [objects, setObjects] = useState<{ x: number; y: number; image: string; points: number }[]>([]);
+  const [objects, setObjects] = useState<
+    { x: number; y: number; image: string; points: number }[]
+  >([]);
 
-  const handleMoveUp = () => setPositionY((prev) => prev - 10);
-  const handleMoveDown = () => setPositionY((prev) => prev + 10);
+  const handleMoveUp = () => setPositionY((prev) => prev - 20);
+  const handleMoveDown = () => setPositionY((prev) => prev + 20);
+
+  const pavoRef = useRef<HTMLDivElement | null>(null);
+
+  const getPavoSize = () => {
+    if (pavoRef.current) {
+      const rect = pavoRef.current.getBoundingClientRect();
+      return { width: rect.width, height: rect.height };
+    }
+    return { width: 0, height: 0 };
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
       const isReward = Math.random() > 0.5;
       const objectList = isReward ? rewardsData : obstaclesData;
-      const randomObject = objectList[Math.floor(Math.random() * objectList.length)];
+      const randomObject =
+        objectList[Math.floor(Math.random() * objectList.length)];
 
       setObjects((prev) => [
         ...prev,
@@ -29,8 +42,8 @@ export default function MainGamePage() {
           x: window.innerWidth,
           y: Math.random() * window.innerHeight * 0.8,
           image: randomObject.image,
-          points: randomObject.points
-        }
+          points: randomObject.points,
+        },
       ]);
     }, 2000);
 
@@ -40,7 +53,9 @@ export default function MainGamePage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setObjects((prev) =>
-        prev.map((obj) => ({ ...obj, x: obj.x - 10 })).filter((obj) => obj.x > -50)
+        prev
+          .map((obj) => ({ ...obj, x: obj.x - 10 }))
+          .filter((obj) => obj.x > -50)
       );
     }, 100);
 
@@ -50,14 +65,17 @@ export default function MainGamePage() {
   useEffect(() => {
     setObjects((prevObjects) =>
       prevObjects.filter((obj) => {
-        const isCollision =
-          obj.x < 80 && obj.x > 40 && positionY < obj.y + 50 && positionY + 50 > obj.y;
+        const { width: pavoWidth, height: pavoHeight } = getPavoSize();
 
-        if (isCollision) {
+        const isCollisionX = obj.x < 80 + pavoWidth && obj.x + 50 > 40;
+        const isCollisionY =
+          positionY < obj.y + 50 && positionY + pavoHeight > obj.y;
+
+        if (isCollisionX && isCollisionY) {
           setScore((prevScore) => prevScore + obj.points);
         }
 
-        return !isCollision;
+        return !(isCollisionX && isCollisionY);
       })
     );
   }, [positionY]);
@@ -74,7 +92,8 @@ export default function MainGamePage() {
         ))}
 
         <motion.div
-          className="w-32"
+          ref={pavoRef}
+          className="w-18 md:w-24 lg:w-32"
           animate={{ y: positionY }}
           transition={{ duration: 0.3 }}
         >
