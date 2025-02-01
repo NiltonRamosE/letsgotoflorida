@@ -1,20 +1,20 @@
 import { Image } from "@nextui-org/image";
 
-interface ObstacleProps {
+interface ObjectProps {
   x: number;
   y: number;
   image: string;
 }
 
-const Obstacle = ({ x, y, image }: ObstacleProps) => {
+const Object = ({ x, y, image }: ObjectProps) => {
   return (
     <div
       className="absolute"
       style={{ top: `${y}px`, left: `${x}px` }}
     >
-      <Image src={image} alt="Obstacle" width={50} height={50} />
+      <Image src={image} alt="Object" width={50} height={50} />
     </div>
   );
 };
 
-export default Obstacle;
+export default Object;

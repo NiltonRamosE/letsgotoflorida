@@ -5,7 +5,7 @@ export default function AdvanceBar({ progress }: { progress: number }) {
   return (
     <div className="relative w-full mx-auto mt-6 px-4 sm:px-8">
       <img
-        src="/peru-flag.png"
+        src="/peru-flag.webp"
         alt="Perú"
         className="absolute left-[-4px] sm:left-[-24px] top-[-35px] sm:top-[-0.5px] w-12 z-10"
       />
@@ -21,7 +21,7 @@ export default function AdvanceBar({ progress }: { progress: number }) {
       </div>
 
       <img
-        src="/usa-flag.png"
+        src="/usa-flag.webp"
         alt="USA"
         className="absolute right-[-4px] sm:right-[-24px] top-[-35px] sm:top-[-1px] w-12 h-8 z-10"
       />
