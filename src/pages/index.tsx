@@ -31,7 +31,7 @@ export default function IndexPage() {
         </motion.div>
 
         <motion.a
-          href="/game"
+          href="/game/game-main"
           className="px-10 py-5 text-xl font-semibold text-white bg-gradient-to-r from-blue-600 via-blue-400 to-blue-200 rounded-full shadow-lg transform hover:scale-105 hover:shadow-2xl transition-all duration-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
