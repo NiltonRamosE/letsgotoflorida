@@ -2,6 +2,7 @@
 import DefaultLayout from "@/layouts/default";
 import { motion } from "framer-motion";
 import { Image } from "@nextui-org/image";
+import { FaInstagram, FaTwitter, FaLinkedin, FaGithub } from "react-icons/fa";
 
 export default function IndexPage() {
   return (
@@ -39,6 +40,41 @@ export default function IndexPage() {
         >
           JUGAR AHORA
         </motion.a>
+      </div>
+      <div className="fixed bottom-4 right-4 flex space-x-4 z-50">
+        {/* Enlaces con iconos */}
+        <a
+          href="https://www.instagram.com/ramos._.xd"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white text-3xl hover:text-pink-500 transition-all"
+        >
+          <FaInstagram />
+        </a>
+        <a
+          href="https://x.com/NiltonRamos2003"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white text-3xl hover:text-blue-400 transition-all"
+        >
+          <FaTwitter />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/nilton-ramos-encarnacion-0819b433b"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white text-3xl hover:text-blue-700 transition-all"
+        >
+          <FaLinkedin />
+        </a>
+        <a
+          href="https://github.com/NiltonRamosE/letsgotoflorida"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white text-3xl hover:text-gray-500 transition-all"
+        >
+          <FaGithub />
+        </a>
       </div>
     </DefaultLayout>
   );
