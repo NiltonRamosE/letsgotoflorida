@@ -20,6 +20,7 @@ export default function MainGamePage() {
   const [score, setScore] = useState(0);
   const [positionY, setPositionY] = useState(300);
   const [objects, setObjects] = useState<GameObject[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   const turkeyRef = useRef<HTMLDivElement | null>(null);
 
@@ -27,6 +28,12 @@ export default function MainGamePage() {
   const handleMoveDown = () =>
     setPositionY((prev) => Math.min(window.innerHeight - 60, prev + 30));
 
+  const resetGame = () => {
+    setScore(0);
+    setPositionY(300);
+    setObjects([]);
+    setShowModal(false);
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       const isReward = Math.random() > 0.5;
@@ -94,10 +101,16 @@ export default function MainGamePage() {
     return () => cancelAnimationFrame(animationId);
   }, []);
 
+  useEffect(() => {
+    if (score >= 100) {
+      setShowModal(true);
+    }
+  }, [score]);
+
   return (
     <DefaultLayout>
       <div className="absolute top-4 left-4 right-4 z-20">
-        <AdvanceBar progress={(score / 50) * 100} />
+        <AdvanceBar progress={(score / 100) * 100} />
       </div>
 
       <div className="relative flex flex-col items-center justify-center min-h-screen text-center space-y-6 overflow-hidden">
@@ -144,6 +157,33 @@ export default function MainGamePage() {
           Score: {score}
         </div>
       </div>
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-gradient-to-br from-blue-400 via-purple-500 to-pink-600 p-8 rounded-xl text-center max-w-sm mx-auto shadow-lg">
+            <h2 className="text-3xl font-bold mb-6 text-white">
+              ¡Felicidades! Dejaste de ser un pavo y ahora eres todo un
+              americano. Ya estás listo para ir a Florida.
+            </h2>
+
+            <div className="mb-6">
+              <img
+                src="/syda-game-fondo.webp"
+                alt="Imagen de victoria"
+                width={200}
+                height={200}
+                className="mx-auto rounded-lg shadow-lg border-4 border-white"
+              />
+            </div>
+
+            <button
+              onClick={resetGame}
+              className="px-6 py-3 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full hover:scale-105 transition-transform duration-300 shadow-xl"
+            >
+              Reiniciar Juego
+            </button>
+          </div>
+        </div>
+      )}
     </DefaultLayout>
   );
 }
