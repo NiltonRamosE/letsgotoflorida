@@ -9,25 +9,23 @@ import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { Image } from "@nextui-org/image";
 
+interface GameObject {
+  x: number;
+  y: number;
+  image: string;
+  points: number;
+}
+
 export default function MainGamePage() {
   const [score, setScore] = useState(0);
-  const [positionY, setPositionY] = useState(0);
-  const [objects, setObjects] = useState<
-    { x: number; y: number; image: string; points: number }[]
-  >([]);
+  const [positionY, setPositionY] = useState(300);
+  const [objects, setObjects] = useState<GameObject[]>([]);
 
-  const handleMoveUp = () => setPositionY((prev) => prev - 20);
-  const handleMoveDown = () => setPositionY((prev) => prev + 20);
+  const turkeyRef = useRef<HTMLDivElement | null>(null);
 
-  const pavoRef = useRef<HTMLDivElement | null>(null);
-
-  const getPavoSize = () => {
-    if (pavoRef.current) {
-      const rect = pavoRef.current.getBoundingClientRect();
-      return { width: rect.width, height: rect.height };
-    }
-    return { width: 0, height: 0 };
-  };
+  const handleMoveUp = () => setPositionY((prev) => Math.max(0, prev - 30));
+  const handleMoveDown = () =>
+    setPositionY((prev) => Math.min(window.innerHeight - 60, prev + 30));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -40,7 +38,7 @@ export default function MainGamePage() {
         ...prev,
         {
           x: window.innerWidth,
-          y: Math.random() * window.innerHeight * 0.8,
+          y: Math.random() * (window.innerHeight - 100),
           image: randomObject.image,
           points: randomObject.points,
         },
@@ -57,28 +55,46 @@ export default function MainGamePage() {
           .map((obj) => ({ ...obj, x: obj.x - 10 }))
           .filter((obj) => obj.x > -50)
       );
-    }, 100);
+    }, 50);
 
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    setObjects((prevObjects) =>
-      prevObjects.filter((obj) => {
-        const { width: pavoWidth, height: pavoHeight } = getPavoSize();
+    const checkCollision = () => {
+      if (!turkeyRef.current) return;
 
-        const isCollisionX = obj.x < 80 + pavoWidth && obj.x + 50 > 40;
-        const isCollisionY =
-          positionY < obj.y + 50 && positionY + pavoHeight > obj.y;
+      const turkeyRect = turkeyRef.current.getBoundingClientRect();
 
-        if (isCollisionX && isCollisionY) {
-          setScore((prevScore) => prevScore + obj.points);
-        }
+      setObjects((prevObjects) =>
+        prevObjects.filter((obj) => {
+          const objRect = {
+            left: obj.x,
+            right: obj.x + 50,
+            top: obj.y,
+            bottom: obj.y + 50,
+          };
 
-        return !(isCollisionX && isCollisionY);
-      })
-    );
-  }, [positionY]);
+          const isCollision =
+            turkeyRect.left < objRect.right &&
+            turkeyRect.right > objRect.left &&
+            turkeyRect.top < objRect.bottom &&
+            turkeyRect.bottom > objRect.top;
+
+          if (isCollision) {
+            setScore((prevScore) => prevScore + obj.points);
+          }
+
+          return !isCollision;
+        })
+      );
+
+      requestAnimationFrame(checkCollision);
+    };
+
+    const animationId = requestAnimationFrame(checkCollision);
+    return () => cancelAnimationFrame(animationId);
+  }, []);
 
   return (
     <DefaultLayout>
@@ -92,10 +108,10 @@ export default function MainGamePage() {
         ))}
 
         <motion.div
-          ref={pavoRef}
-          className="w-18 md:w-24 lg:w-32"
-          animate={{ y: positionY }}
-          transition={{ duration: 0.3 }}
+          ref={turkeyRef}
+          className="w-18 md:w-24 lg:w-32 absolute"
+          style={{ top: positionY, left: 50 }}
+          transition={{ duration: 0.1 }}
         >
           <Image
             src="/pavo.webp"
