@@ -16,27 +16,11 @@ export default function MainGamePage() {
 
   return (
     <DefaultLayout>
-      <div className="absolute top-4 left-4 z-20">
-        <motion.a
-          href="/"
-          className="px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 via-blue-400 to-blue-200 rounded-full shadow-lg transform hover:scale-105 hover:shadow-2xl transition-all duration-300"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          Volver
-        </motion.a>
-      </div>
-
-      <div className="mt-24 md:mt-32">
+      <div className="absolute top-4 left-4 right-4 z-20">
         <AdvanceBar progress={(score / 50) * 100} />
       </div>
 
       <div className="flex flex-col items-center justify-center min-h-screen text-center space-y-6 overflow-hidden">
-        <div className="absolute top-4 right-4 bg-black/50 text-white px-6 py-3 rounded-lg text-xl font-bold z-20">
-          Score: {score} m
-        </div>
-
         <motion.div
           className="w-32"
           animate={{ x: position }}
@@ -48,14 +32,22 @@ export default function MainGamePage() {
             className="transform transition-transform hover:scale-105"
           />
         </motion.div>
+      </div>
 
-        <motion.button
-          onClick={handleMove}
-          className="px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-green-500 via-green-400 to-green-300 rounded-full shadow-lg transform hover:scale-105 hover:shadow-2xl transition-all duration-300"
-          whileTap={{ scale: 0.9 }}
+      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+        <motion.a
+          href="/"
+          className="px-6 py-3 text-lg font-semibold text-white bg-black/50 rounded-full shadow-lg transform hover:scale-105 hover:shadow-2xl transition-all duration-300 whitespace-nowrap"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
         >
-          Avanzar
-        </motion.button>
+          Volver
+        </motion.a>
+
+        <div className="bg-black/50 text-white px-6 py-3 rounded-lg text-xl font-bold z-20 whitespace-nowrap">
+          Score: {score} m
+        </div>
       </div>
     </DefaultLayout>
   );
