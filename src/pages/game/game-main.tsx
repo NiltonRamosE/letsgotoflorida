@@ -1,19 +1,17 @@
 "use client";
 import DefaultLayout from "@/layouts/default";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Image } from "@nextui-org/image";
 
 export default function MainGamePage() {
   const [score, setScore] = useState(0);
+  const [position, setPosition] = useState(0);
 
-  /*useEffect(() => {
-    const interval = setInterval(() => {
-      setScore((prevScore) => prevScore + 1);
-    }, 100);
-
-    return () => clearInterval(interval);
-  }, []);*/
+  const handleMove = () => {
+    setPosition((prev) => prev + 10);
+    setScore((prevScore) => prevScore + 1);
+  };
 
   return (
     <DefaultLayout>
@@ -36,15 +34,23 @@ export default function MainGamePage() {
 
         <motion.div
           className="w-32"
-          animate={{ y: [0, -10, 0] }}
-          transition={{ repeat: Infinity, duration: 0.5 }}
+          animate={{ x: position }}
+          transition={{ duration: 0.3 }}
         >
           <Image
             src="/pavo.webp"
-            alt="Florida game"
+            alt="Pavo player"
             className="transform transition-transform hover:scale-105"
           />
         </motion.div>
+
+        <motion.button
+          onClick={handleMove}
+          className="px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-green-500 via-green-400 to-green-300 rounded-full shadow-lg transform hover:scale-105 hover:shadow-2xl transition-all duration-300"
+          whileTap={{ scale: 0.9 }}
+        >
+          Avanzar
+        </motion.button>
       </div>
     </DefaultLayout>
   );
