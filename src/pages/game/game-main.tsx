@@ -21,6 +21,7 @@ export default function MainGamePage() {
   const [positionY, setPositionY] = useState(300);
   const [objects, setObjects] = useState<GameObject[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
 
   const turkeyRef = useRef<HTMLDivElement | null>(null);
 
@@ -33,8 +34,17 @@ export default function MainGamePage() {
     setPositionY(300);
     setObjects([]);
     setShowModal(false);
+    setGameStarted(false);
   };
+
+  const startGame = () => {
+    setGameStarted(true);
+    setShowModal(false);
+  };
+
   useEffect(() => {
+    if (!gameStarted) return;
+
     const interval = setInterval(() => {
       const isReward = Math.random() > 0.5;
       const objectList = isReward ? rewardsData : obstaclesData;
@@ -53,9 +63,11 @@ export default function MainGamePage() {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [gameStarted]);
 
   useEffect(() => {
+    if (!gameStarted) return;
+
     const interval = setInterval(() => {
       setObjects((prev) =>
         prev
@@ -65,9 +77,11 @@ export default function MainGamePage() {
     }, 50);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [gameStarted]);
 
   useEffect(() => {
+    if (!gameStarted) return;
+
     const checkCollision = () => {
       if (!turkeyRef.current) return;
 
@@ -99,7 +113,7 @@ export default function MainGamePage() {
 
     const animationId = requestAnimationFrame(checkCollision);
     return () => cancelAnimationFrame(animationId);
-  }, []);
+  }, [gameStarted]);
 
   useEffect(() => {
     if (score >= 100) {
@@ -109,6 +123,68 @@ export default function MainGamePage() {
 
   return (
     <DefaultLayout>
+      {!gameStarted && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-gradient-to-br from-blue-400 via-purple-500 to-pink-600 p-8 rounded-xl text-center max-w-sm mx-auto shadow-lg">
+            <h2 className="text-3xl font-bold mb-6 text-white">
+              ¡Bienvenido al juego! 🦃
+            </h2>
+            <p className="text-white mb-6">
+              Tienes que comer los dulces que Sylvee te trajo para engordarte,
+              pero si eres atrapado te volverás más peruano de lo que ya eres.
+              ¡Haz clic sobre los botones ARRIBA y ABAJO para desplazarte!
+            </p>
+
+            <div className="text-white">
+              <div className="font-semibold text-lg mb-2">Obstáculos:</div>
+              <div className="grid grid-cols-3 lg:grid-cols-4 gap-2">
+                {obstaclesData.map((obstacle, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col items-center text-center"
+                  >
+                    <Image
+                      src={obstacle.image}
+                      alt={obstacle.name}
+                      width={60}
+                      height={60}
+                      className="rounded-lg"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="text-white">
+              <div className="mb-2 font-semibold text-lg">Premios:</div>
+              <div className="grid grid-cols-3 lg:grid-cols-4 gap-2">
+                {rewardsData.map((reward, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col items-center text-center"
+                  >
+                    <Image
+                      src={reward.image}
+                      alt={reward.name}
+                      width={60}
+                      height={60}
+                      className="rounded-lg"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={startGame}
+              className="mt-2 px-6 py-3 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full hover:scale-105 transition-transform duration-300 shadow-xl"
+            >
+              Empezar Juego
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="absolute top-4 left-4 right-4 z-20">
         <AdvanceBar progress={(score / 100) * 100} />
       </div>
