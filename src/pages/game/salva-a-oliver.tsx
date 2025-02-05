@@ -73,7 +73,7 @@ export default function SalvaOliverPage() {
           imageSrc: "/saveOliver/baje-oliver.webp",
         },
         {
-          message: "Terrible lo que pasará luego de que Oliver se case.",
+          message: "¡Te equivocaste! Terrible lo que pasará luego de que Oliver se case.",
           imageSrc: "/saveOliver/cuys-boda.jpg",
         },
       ];
