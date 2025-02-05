@@ -8,29 +8,29 @@ import GameOverModal from "@/components/game/gameovermodal";
 
 const questions = [
   {
-    question: "¿Qué comida le gusta a Oliver?",
-    options: ["Papas fritas", "Lechuga", "Galletas"],
+    question: "¿En que prueba murió sylvee en los juegos del calamardo?",
+    options: ["Luz roja - Luz verde", "Candado", "Juego de la galleta", "La cuerda"],
+    correct: 2,
+  },
+  {
+    question: "¿Cuál es la canción oficial del syda?",
+    options: ["Limon y Sal", "Accidentally In Love", "Expresso", "Pala remix :v"],
     correct: 1,
   },
   {
-    question: "¿De qué país es Sylvee?",
-    options: ["Brasil", "EE.UU.", "Perú"],
+    question: "¿Cuál de estas cosas no le pasó a cherry en Perú?",
+    options: ["Perder su celular", "Quemarse por el sol", "Corte en el tobillo", "La gravedad"],
+    correct: 3,
+  },
+  {
+    question: "¿Cuál de los siguientes no es un gato de sylvee?",
+    options: ["Tesla", "Nikola Tesla", "Niko"],
     correct: 1,
   },
   {
-    question: "¿Cómo se llama la mascota de Sylvee?",
-    options: ["Oliver", "Toby", "Bobby"],
-    correct: 0,
-  },
-  {
-    question: "¿Qué animal es Oliver?",
-    options: ["Cuy", "Conejo", "Perro"],
-    correct: 0,
-  },
-  {
-    question: "¿De qué color es Oliver?",
-    options: ["Blanco", "Negro", "Marrón"],
-    correct: 0,
+    question: "¿Quién fue el paciente cero del syda :v?",
+    options: ["Aquino", "Daarick", "Milei - ¡El syda es un sentimiento!", "@fer350000"],
+    correct: 3,
   },
 ];
 
