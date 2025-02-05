@@ -1,11 +1,16 @@
 "use client";
 import { motion } from "framer-motion";
 
-export default function AdvanceBar({ progress }: { progress: number }) {
+interface AdvanceBarProps {
+  progress: number;
+  imageLeft: string;
+  imageRight: string;
+}
+export default function AdvanceBar({ progress, imageLeft, imageRight }: AdvanceBarProps) {
   return (
     <div className="relative w-full mx-auto mt-6 px-4 sm:px-8">
       <img
-        src="/peru-flag.webp"
+        src={imageLeft}
         alt="Perú"
         className="absolute left-[-4px] sm:left-[-24px] top-[-35px] sm:top-[-0.5px] w-12 z-10"
       />
@@ -21,7 +26,7 @@ export default function AdvanceBar({ progress }: { progress: number }) {
       </div>
 
       <img
-        src="/usa-flag.webp"
+        src={imageRight}
         alt="USA"
         className="absolute right-[-4px] sm:right-[-24px] top-[-35px] sm:top-[-1px] w-12 h-8 z-10"
       />

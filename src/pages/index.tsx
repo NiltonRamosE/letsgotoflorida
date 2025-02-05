@@ -39,7 +39,11 @@ export default function IndexPage() {
             image="/probando-dulces-bg.webp"
             link="/game/probando-dulces"
           />
-          <GameCard title="Quiz" image="/icono-plus-game.svg" link="#" />
+          <GameCard
+            title="¡Salva a Oliver!"
+            image="/icono-plus-game.svg"
+            link="/game/salva-a-oliver"
+          />
           <GameCard
             title="Próximamente"
             image="/icono-plus-game.svg"

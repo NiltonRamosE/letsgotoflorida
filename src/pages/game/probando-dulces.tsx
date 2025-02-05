@@ -186,7 +186,11 @@ export default function ProbandoDulcesPage() {
       )}
 
       <div className="absolute top-4 left-4 right-4 z-20">
-        <AdvanceBar progress={(score / 100) * 100} />
+        <AdvanceBar
+          progress={(score / 100) * 100}
+          imageLeft="/peru-flag.webp"
+          imageRight="/usa-flag.webp"
+        />
       </div>
 
       <div className="relative flex flex-col items-center justify-center min-h-screen text-center space-y-6 overflow-hidden">
