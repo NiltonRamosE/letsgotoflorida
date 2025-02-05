@@ -1,8 +1,9 @@
 "use client";
 import DefaultLayout from "@/layouts/default";
 import AdvanceBar from "@/components/game/advancebar";
-import { useState} from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { Image } from "@nextui-org/image";
 
 export default function SalvaOliverPage() {
   const [level, setLevel] = useState(0);
@@ -11,13 +12,23 @@ export default function SalvaOliverPage() {
     <DefaultLayout>
       <div className="absolute top-4 left-4 right-4 z-20">
         <AdvanceBar
-          progress={(level/5)*100}
+          progress={(level / 5) * 100}
           imageLeft="/gaston-acurio.webp"
           imageRight="/sylvee-black.webp"
         />
       </div>
       <div className="relative flex flex-col items-center justify-center min-h-screen text-center space-y-6 overflow-hidden">
-        
+        <motion.div
+          className="w-18 md:w-24 lg:w-32 absolute"
+          style={{ left: 50 }}
+          transition={{ duration: 0.1 }}
+        >
+          <Image
+            src="/oliver.webp"
+            alt="Oliver player"
+            className="transform transition-transform hover:scale-105"
+          />
+        </motion.div>
       </div>
 
       <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
