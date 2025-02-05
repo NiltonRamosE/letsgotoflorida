@@ -3,6 +3,7 @@ import DefaultLayout from "@/layouts/default";
 import { motion } from "framer-motion";
 import { Image } from "@nextui-org/image";
 import { FaInstagram, FaTwitter, FaLinkedin, FaGithub } from "react-icons/fa";
+import GameCard from "@/components/game-card";
 
 export default function IndexPage() {
   return (
@@ -31,18 +32,22 @@ export default function IndexPage() {
           />
         </motion.div>
 
-        <motion.a
-          href="/game/game-main"
-          className="px-10 py-5 text-xl font-semibold text-white bg-gradient-to-r from-blue-600 via-blue-400 to-blue-200 rounded-full shadow-lg transform hover:scale-105 hover:shadow-2xl transition-all duration-300"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          JUGAR AHORA
-        </motion.a>
+        <div className="flex flex-wrap justify-center gap-6 md:justify-start">
+          {" "}
+          <GameCard
+            title="Probando Dulces"
+            image="/probando-dulces-bg.webp"
+            link="/game/probando-dulces"
+          />
+          <GameCard title="Quiz" image="/icono-plus-game.svg" link="#" />
+          <GameCard
+            title="Próximamente"
+            image="/icono-plus-game.svg"
+            link="#"
+          />
+        </div>
       </div>
-      <div className="fixed bottom-4 right-4 flex space-x-4 z-50">
-        {/* Enlaces con iconos */}
+      <div className="fixed bottom-4 right-4 flex flex-col space-y-4 items-end z-50">
         <a
           href="https://www.instagram.com/ramos._.xd"
           target="_blank"

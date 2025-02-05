@@ -16,7 +16,7 @@ interface GameObject {
   points: number;
 }
 
-export default function MainGamePage() {
+export default function ProbandoDulcesPage() {
   const [score, setScore] = useState(0);
   const [positionY, setPositionY] = useState(300);
   const [objects, setObjects] = useState<GameObject[]>([]);
