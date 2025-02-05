@@ -41,7 +41,7 @@ export default function IndexPage() {
           />
           <GameCard
             title="¡Salva a Oliver!"
-            image="/icono-plus-game.svg"
+            image="/salva-a-oliver-bg.png"
             link="/game/salva-a-oliver"
           />
           <GameCard
