@@ -69,7 +69,7 @@ export default function IndexPage() {
           <FaTwitter />
         </a>
         <a
-          href="https://www.linkedin.com/in/nilton-ramos-encarnacion-0819b433b"
+          href="https://www.linkedin.com/in/niltonramosencarnacion/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-white text-3xl hover:text-blue-700 transition-all"
